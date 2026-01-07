@@ -12,12 +12,11 @@ import configuration from './config';
       isGlobal: true,
       load: configuration,
     }),
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000, // 1 minute
-        limit: 10, // 10 requests per minute
-      },
-    ]),
+    // Try this syntax - without the array wrapper
+    ThrottlerModule.forRoot({
+      ttl: 60, // in seconds
+      limit: 10,
+    }),
     DatabaseModule,
     AuthModule,
   ],

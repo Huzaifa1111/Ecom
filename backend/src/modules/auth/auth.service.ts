@@ -386,6 +386,7 @@ private getTokenExpiry(type: string): Date {
   }
 }
 
+// KEEP THIS ONE (lines around 389-407):
 private parseJwtExpiry(expiry: string): number {
   const match = expiry.match(/^(\d+)([smhd])$/);
   if (!match) return 7 * 24 * 60 * 60 * 1000; // Default 7 days
@@ -407,26 +408,11 @@ private parseJwtExpiry(expiry: string): number {
   }
 }
 
-  private parseJwtExpiry(expiry: string): number {
-    const match = expiry.match(/^(\d+)([smhd])$/);
-    if (!match) return 7 * 24 * 60 * 60 * 1000; // Default 7 days
+// DELETE THESE TWO:
+// 1. Around line 411 (the second one)
+// 2. Around line 432 (the third one)
+// DELETE EVERYTHING FROM LINE 410 TO 428 - THE DUPLICATE FUNCTION
 
-    const value = parseInt(match[1], 10);
-    const unit = match[2];
-
-    switch (unit) {
-      case 's':
-        return value * 1000;
-      case 'm':
-        return value * 60 * 1000;
-      case 'h':
-        return value * 60 * 60 * 1000;
-      case 'd':
-        return value * 24 * 60 * 60 * 1000;
-      default:
-        return 7 * 24 * 60 * 60 * 1000;
-    }
-  }
 
   private async sendVerificationEmail(email: string, token: string) {
     const verificationUrl = `${this.configService.get('frontendUrl')}/verify-email?token=${token}`;
